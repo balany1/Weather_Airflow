@@ -10,7 +10,7 @@ default_args = {
     'email_on_failure': False,
     'email_on_retry': False,
     'retries': 1,
-    'start_date': datetime(2020, 1, 1), # If you set a datetime previous to the curernt date, it will try to backfill
+    'start_date': datetime(2023, 2, 8), # If you set a datetime previous to the curernt date, it will try to backfill
     'retry_delay': timedelta(minutes=5),
     'end_date': datetime(2024, 1, 1),
 }
@@ -23,19 +23,19 @@ with DAG(dag_id='test_dag_dependencies',
     # Define the tasks. Here we are going to define only one bash operator
     date_task = BashOperator(
         task_id='write_date',
-        bash_command='cd ~/Home/AICore_Work/Weather_Airflow && date >> date.txt',
+        bash_command='cd ~/AICore_work/Weather_Airflow && date >> date.txt',
         dag=dag)
     add_task = BashOperator(
         task_id='add_files',
-        bash_command='cd ~/Home/AICore_Work/Weather_Airflow && git add .',
+        bash_command='cd ~/AICore_work/Weather_Airflow && git add .',
         dag=dag)
     commit_task = BashOperator(
         task_id='commit_files',
-        bash_command='cd ~/Home/AICore_Work/Weather_Airflow && git commit -m "Update date"',
+        bash_command='cd ~/AICore_work/Weather_Airflow && git commit -m "Update date"',
         dag=dag)
     push_task = BashOperator(
         task_id='push_files',
-        bash_command='cd ~/Home/AICore_Work/Weather_Airflow && git push',
+        bash_command='cd ~/AICore_work/Weather_Airflow && git push',
         dag=dag)
     
     date_task >> add_task >> commit_task
