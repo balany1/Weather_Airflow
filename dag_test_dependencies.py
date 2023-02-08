@@ -36,10 +36,14 @@ with DAG(dag_id='test_dag_dependencies',
         task_id='commit_files',
         bash_command='cd ~/AICore_work/Weather_Airflow && git commit -m "Update date"',
         dag=dag)
+    credentials_setup = BashOperator(
+        task_id='login'
+    )
     push_task = BashOperator(
         task_id='push_files',
         bash_command='cd ~/AICore_work/Weather_Airflow && git push',
         dag=dag)
+    
     
     date_task >> add_task >> commit_task
     add_task >> push_task
