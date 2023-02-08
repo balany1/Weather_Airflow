@@ -2,6 +2,9 @@ from airflow.models import DAG
 from datetime import datetime
 from datetime import timedelta
 from airflow.operators.bash_operator import BashOperator
+from airflow.models import Variable
+
+weather_dir = Variable.get("weather_dir")
 
 default_args = {
     'owner': 'Andrew',
@@ -23,7 +26,7 @@ with DAG(dag_id='test_dag_dependencies',
     # Define the tasks. Here we are going to define only one bash operator
     date_task = BashOperator(
         task_id='write_date',
-        bash_command='cd ~/AICore_work/Weather_Airflow && date >> date.txt',
+        bash_command='{cd ~/AICore_work/Weather_Airflow && date >> date.txt',
         dag=dag)
     add_task = BashOperator(
         task_id='add_files',
