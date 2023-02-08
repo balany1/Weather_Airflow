@@ -37,9 +37,9 @@ with DAG(dag_id='test_dag_dependencies',
         bash_command='cd ~/AICore_work/Weather_Airflow && git commit -m "Update date"',
         dag=dag)
     credentials_setup = BashOperator(
-        task_id='setup_credentials'
-        bash_command='git config --global user.name "balany1"'
-        bash_command='git config --global user.email "andrewmcnamara@live.co.uk"'
+        task_id='setup_credentials',
+        bash_command='git config --global user.name "balany1"',
+        bash_command='git config --global user.email "andrewmcnamara@live.co.uk"',
         dag=dag)
     push_task = BashOperator(
         task_id='push_files',
@@ -47,6 +47,4 @@ with DAG(dag_id='test_dag_dependencies',
         dag=dag)
     
     
-    date_task >> add_task >> commit_task
-    add_task >> push_task
-    commit_task >> push_task
+    date_task >> add_task >> commit_task >> credentials_setup >> push_task
