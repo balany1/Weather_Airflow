@@ -38,7 +38,8 @@ with DAG(dag_id='test_dag_dependencies',
         dag=dag)
     credentials_setup = BashOperator(
         task_id='setup_credentials'
-        bash_command='c'
+        bash_command='git config --global user.name "balany1"
+        bash_command='git config --global user.email "andrew'
     )
     push_task = BashOperator(
         task_id='push_files',
