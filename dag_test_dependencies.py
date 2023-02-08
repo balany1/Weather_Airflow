@@ -7,7 +7,7 @@ from airflow.models import Variable
 weather_dir = Variable.get("weather_dir")
 
 default_args = {
-    'owner': 'Andrew',
+    'owner': 'balany1',
     'depends_on_past': False,
     'email': ['andrewmcnamara@live.co.uk'],
     'email_on_failure': False,
